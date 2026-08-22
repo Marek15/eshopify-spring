@@ -20,9 +20,8 @@ services:
       db:
         condition: service_healthy
     environment:
-      ESHOPIFY_DB_HOST: eshopify
-      ESHOPIFY_DB_PORT: 5432
-      ESHOPIFY_DB_USERNAME: root
-      ESHOPIFY_DB_PASSWORD: root
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/eshopify
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
     ports:
       - "8080:8080"
