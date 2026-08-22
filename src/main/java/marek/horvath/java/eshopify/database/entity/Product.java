@@ -2,6 +2,7 @@ package marek.horvath.java.eshopify.database.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ public class Product {
     private String name;
 
     @Column(nullable = false)
-    private String price;
+    private BigDecimal price;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();

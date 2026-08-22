@@ -4,7 +4,7 @@ CREATE TABLE products
 (
     id         UUID         NOT NULL,
     name       VARCHAR(255) NOT NULL,
-    price      VARCHAR(255) NOT NULL,
+    price      NUMERIC(19,2) NOT NULL,
     created_at TIMESTAMP WITHOUT TIME ZONE,
     deleted_at TIMESTAMP WITHOUT TIME ZONE,
     CONSTRAINT pk_products PRIMARY KEY (id)
