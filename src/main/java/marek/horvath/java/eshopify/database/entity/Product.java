@@ -1,6 +1,8 @@
 package marek.horvath.java.eshopify.database.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,8 +18,11 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @DecimalMin(value = "0.00")
+    @Digits(integer = 12, fraction = 2)
+    @Column(nullable = false, precision = 14, scale = 2)
     private BigDecimal price;
+
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
