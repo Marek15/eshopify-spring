@@ -1,7 +1,7 @@
 package marek.horvath.java.eshopify.controller;
 
-import marek.horvath.java.eshopify.database.entity.Product;
-import marek.horvath.java.eshopify.dto.CreateProductDto;
+import marek.horvath.java.eshopify.entity.Product;
+import marek.horvath.java.eshopify.dto.ProductDto;
 import marek.horvath.java.eshopify.services.ProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +27,7 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public Product createProduct(@RequestBody CreateProductDto product) {
+    public Product createProduct(@RequestBody ProductDto product) {
         return productService.createProduct(product);
     }
 

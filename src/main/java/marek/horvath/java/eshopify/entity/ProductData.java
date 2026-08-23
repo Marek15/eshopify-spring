@@ -1,4 +1,4 @@
-package marek.horvath.java.eshopify.database.entity;
+package marek.horvath.java.eshopify.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -9,11 +9,15 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "products_data")
+public class ProductData {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     @Column(nullable = false)
     private String name;
@@ -62,5 +66,21 @@ public class Product {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
     }
 }

@@ -1,6 +1,6 @@
 package marek.horvath.java.eshopify.repository;
 
-import marek.horvath.java.eshopify.database.entity.Product;
+import marek.horvath.java.eshopify.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
