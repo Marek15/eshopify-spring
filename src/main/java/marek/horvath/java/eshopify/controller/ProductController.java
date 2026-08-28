@@ -2,6 +2,7 @@ package marek.horvath.java.eshopify.controller;
 
 import marek.horvath.java.eshopify.entity.Product;
 import marek.horvath.java.eshopify.dto.ProductDto;
+import marek.horvath.java.eshopify.dto.ProductResponseDto;
 import marek.horvath.java.eshopify.services.ProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +18,12 @@ public class ProductController {
     }
 
     @GetMapping("/product")
-    public List<Product> getAllProducts() {
+    public List<ProductResponseDto> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @GetMapping("/product/{id}")
-    public Product getProductById(@PathVariable UUID id) {
+    public ProductResponseDto getProductById(@PathVariable UUID id) {
         return productService.getProductById(id);
     }
 

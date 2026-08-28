@@ -76,6 +76,14 @@ public class ProductData {
         this.product = product;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public LocalDateTime getDeletedAt() {
         return deletedAt;
     }

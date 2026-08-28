@@ -3,7 +3,9 @@ package marek.horvath.java.eshopify.services;
 import jakarta.transaction.Transactional;
 import marek.horvath.java.eshopify.entity.Product;
 import marek.horvath.java.eshopify.dto.ProductDto;
+import marek.horvath.java.eshopify.dto.ProductResponseDto;
 import marek.horvath.java.eshopify.entity.ProductData;
+import marek.horvath.java.eshopify.mapper.ProductMapper;
 import marek.horvath.java.eshopify.repository.ProductDataRepository;
 import marek.horvath.java.eshopify.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -22,12 +25,15 @@ public class ProductService {
         this.productDataRepository = productDataRepository;
     }
 
-    public List<Product> getAllProducts() {
-        return this.productRepository.findAll();
+    public List<ProductResponseDto> getAllProducts() {
+        return this.productDataRepository.findAllActive().stream()
+            .map(ProductMapper::toResponseDto)
+            .collect(Collectors.toList());
     }
 
-    public Product getProductById(UUID id) {
-        return this.productRepository.findById(id).orElse(null);
+    public ProductResponseDto getProductById(UUID id) {
+        ProductData productData = this.productDataRepository.findByProduct_IdAndDeletedAtIsNull(id).orElse(null);
+        return ProductMapper.toResponseDto(productData);
     }
 
     @Transactional
