@@ -10,7 +10,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "product_data_id", nullable = false)
+    @Column(name = "product_data_id")
     private UUID productDataId;
 
     public UUID getId() {

@@ -30,49 +30,53 @@ public class ProductService {
         return this.productRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Product createProduct(ProductDto productDto) {
         Product product = new Product();
-        ProductData productData = new ProductData();
-        UUID productDataId = UUID.randomUUID();
-        UUID productId = UUID.randomUUID();
+        product = this.productRepository.save(product);
 
-        product.setId(productId);
-        product.setProductDataId(productDataId);
-        productData.setId(productDataId);
+        ProductData productData = new ProductData();
         productData.setProduct(product);
+        product.setProductDataId(productData.getId());
+
         productData.setName(productDto.name());
         productData.setPrice(productDto.price());
         productData.setDescription(productDto.description());
 
-        this.productRepository.save(product);
         this.productDataRepository.save(productData);
+
+        product.setProductDataId(productData.getId());
+        this.productRepository.save(product);
+
         return product;
     }
 
     @Transactional
     public Product updateProduct(UUID id, ProductDto productDto) {
         Product product = this.productRepository.findById(id).orElse(null);
-        if (product != null) {
-            ProductData oldProductData = this.productDataRepository.findById(product.getProductDataId()).orElse(null);
-            if(oldProductData != null) {
-                oldProductData.setDeletedAt(LocalDateTime.now());
-                this.productDataRepository.save(oldProductData);
-            }
-
-            ProductData productData = new ProductData();
-            UUID productDataId = UUID.randomUUID();
-            productData.setId(productDataId);
-            productData.setName(productDto.name());
-            productData.setPrice(productDto.price());
-            productData.setDescription(productDto.description());
-            productData.setProduct(product);
-
-            product.setProductDataId(productDataId);
-            this.productRepository.save(product);
-            this.productDataRepository.save(productData);
-            return product;
+        if (product == null) {
+            return null;
         }
-        return null;
+
+        ProductData oldProductData = this.productDataRepository.findById(product.getProductDataId()).orElse(null);
+        if (oldProductData == null) {
+            return null;
+        }
+
+        oldProductData.setDeletedAt(LocalDateTime.now());
+        this.productDataRepository.save(oldProductData);
+
+        ProductData productData = new ProductData();
+        productData.setProduct(product);
+        productData.setName(productDto.name() != null ? productDto.name() : oldProductData.getName());
+        productData.setPrice(productDto.price() != null ? productDto.price() : oldProductData.getPrice());
+        productData.setDescription(productDto.description() != null ? productDto.description() : oldProductData.getDescription());
+
+        this.productDataRepository.save(productData);
+
+        product.setProductDataId(productData.getId());
+        this.productRepository.save(product);
+        return product;
     }
 
     public void deleteProduct(UUID id) {

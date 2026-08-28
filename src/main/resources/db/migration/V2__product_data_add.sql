@@ -13,9 +13,6 @@ CREATE TABLE products_data
 ALTER TABLE products
     ADD product_data_id UUID;
 
-ALTER TABLE products
-    ALTER COLUMN product_data_id SET NOT NULL;
-
 ALTER TABLE products_data
     ADD CONSTRAINT FK_PRODUCTS_DATA_ON_PRODUCT FOREIGN KEY (product_id) REFERENCES products (id);
 
