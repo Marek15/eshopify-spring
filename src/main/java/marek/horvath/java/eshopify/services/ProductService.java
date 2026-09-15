@@ -64,7 +64,7 @@ public class ProductService {
             return null;
         }
 
-        ProductData oldProductData = this.productDataRepository.findById(product.getProductDataId()).orElse(null);
+ProductData oldProductData = this.productDataRepository.findByProduct_IdAndDeletedAtIsNull(id).orElse(null);
         if (oldProductData == null) {
             return null;
         }
