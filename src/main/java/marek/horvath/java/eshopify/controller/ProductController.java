@@ -1,5 +1,6 @@
 package marek.horvath.java.eshopify.controller;
 
+import jakarta.validation.Valid;
 import marek.horvath.java.eshopify.entity.Product;
 import marek.horvath.java.eshopify.dto.ProductDto;
 import marek.horvath.java.eshopify.dto.ProductResponseDto;
@@ -28,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public Product createProduct(@RequestBody ProductDto product) {
+    public Product createProduct(@Valid @RequestBody ProductDto product) {
         return productService.createProduct(product);
     }
 
