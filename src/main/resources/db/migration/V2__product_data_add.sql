@@ -16,6 +16,13 @@ ALTER TABLE products
 ALTER TABLE products_data
     ADD CONSTRAINT FK_PRODUCTS_DATA_ON_PRODUCT FOREIGN KEY (product_id) REFERENCES products (id);
 
+INSERT INTO products_data (id, product_id, name, price, created_at, deleted_at)
+SELECT id, id, name, price, created_at, deleted_at
+FROM products;
+
+UPDATE products
+SET product_data_id = id;
+
 ALTER TABLE products
     DROP COLUMN created_at;
 
